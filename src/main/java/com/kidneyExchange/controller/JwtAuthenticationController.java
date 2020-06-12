@@ -11,7 +11,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +20,8 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import com.kidneyExchange.config.JwtTokenUtil;
-import com.kidneyExchange.model.JwtRequest;
-import com.kidneyExchange.model.JwtResponse;
+import com.kidneyExchange.model.JwtRequestLogin;
+import com.kidneyExchange.model.JwtResponseLogin;
 import com.kidneyExchange.service.JwtUserDetailsService;
 
 @RestController
@@ -44,10 +43,10 @@ public class JwtAuthenticationController {
 	private static Logger logger = LogManager.getLogger(JwtAuthenticationController.class);
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequestLogin authenticationRequest)
 			throws Exception {
 
-		User user = userRepository.findByNameAndPassword(authenticationRequest.getUsername(), authenticationRequest.getPassword()).orElse(null);
+		User user = userRepository.findByUsernameAndPassword(authenticationRequest.getUsername(), authenticationRequest.getPassword()).orElse(null);
 
 		if(user != null){
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
@@ -57,7 +56,7 @@ public class JwtAuthenticationController {
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
-		return ResponseEntity.ok(new JwtResponse(token));}
+		return ResponseEntity.ok(new JwtResponseLogin(token));}
 		return null;
 	}
 
