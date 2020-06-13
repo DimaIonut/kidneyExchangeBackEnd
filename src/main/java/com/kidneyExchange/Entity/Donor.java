@@ -1,15 +1,14 @@
 package com.kidneyExchange.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
@@ -18,18 +17,19 @@ import java.util.Date;
 @AllArgsConstructor
 public class Donor {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
-    @NotBlank
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @NotBlank
-    private String bloodType;
+  @NotBlank
+  private String name;
 
-    @NotBlank
-    private String gene;
+  @NotBlank
+  private String bloodType;
 
-    private Date arrivingTime;
+  @NotBlank
+  private String gene;
+
+  private Date arrivingTime;
 }
