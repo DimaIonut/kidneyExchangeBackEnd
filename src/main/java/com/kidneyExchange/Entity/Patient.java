@@ -23,7 +23,10 @@ public class Patient {
     private Integer id;
 
     @NotBlank
-    private String name;
+    private String firstName;
+
+    @NotBlank
+    private String lastName;
 
     @NotBlank
     private String bloodType;
@@ -31,5 +34,17 @@ public class Patient {
     @NotBlank
     private String gene;
 
+    private String email;
+
+    private String city;
+
     private Date arrivingTime;
+
+    public Patient(String firstName, String lastName, String email, String city, String bloodType) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.city = city;
+        this.bloodType = bloodType;
+    }
 }

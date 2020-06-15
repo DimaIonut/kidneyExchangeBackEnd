@@ -62,6 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.antMatchers("/start_find_compatibility")
 				.permitAll()
+				.antMatchers(SecurityContants.DONOR_REGISTRATION_URL)
+				.permitAll()
 				// all other requests need to be authenticated
 				.anyRequest().authenticated().and().
 				// make sure we use stateless session; session won't be used to

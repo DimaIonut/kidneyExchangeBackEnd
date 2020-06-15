@@ -31,14 +31,14 @@ public class StartAlgorithmController {
   @RequestMapping(value="/start_find_compatibility", method = RequestMethod.GET)
   public boolean test() {
 
-    Donor donor = donorRepository.findByName("Ionut").orElse(null);
+    Donor donor = donorRepository.findByFirstName("Ionut").orElse(null);
 
-    Patient patient = patientRepository.findByName("George").orElse(null);
+    Patient patient = patientRepository.findByFirstName("George").orElse(null);
 
     boolean compatibility = checkCompatibility.areCompatible(patient, donor);
     logger.info(
-        "Values of isCompatibility function having patient " + patient.getName() + " and donor "
-            + donor.getName() + " : " + checkCompatibility.areCompatible(patient, donor));
+        "Values of isCompatibility function having patient " + patient.getFirstName() + " and donor "
+            + donor.getFirstName() + " : " + checkCompatibility.areCompatible(patient, donor));
 
     return compatibility;
   }

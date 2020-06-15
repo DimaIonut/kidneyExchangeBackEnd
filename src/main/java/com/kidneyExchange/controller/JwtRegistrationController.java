@@ -32,7 +32,7 @@ public class JwtRegistrationController {
 
         User newUser = userRepository.save(user);
 
-        if (userRepository.findByUserIdAndUsername(newUser.getUserId(), newUser.getUsername()) != null) {
+        if (userRepository.findByUserIdAndUsername(newUser.getUserId(), newUser.getUsername()).orElse(null) != null) {
                 return ResponseEntity.ok(new JwtResponseRegistration("V-ati inregistrat cu succes!", true));
         }
         else {

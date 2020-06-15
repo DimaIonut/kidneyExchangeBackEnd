@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DonorRepository extends JpaRepository<Donor, Integer> {
 
-  Optional<Donor> findByName(String name);
+  Optional<Donor> findByFirstName(String name);
 
+  Optional<Donor> findByFirstNameAndLastNameAndBloodType(String firstName, String lastName, String bloodType);
 }
