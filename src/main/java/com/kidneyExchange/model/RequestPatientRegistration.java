@@ -3,7 +3,7 @@ package com.kidneyExchange.model;
 import lombok.Data;
 
 @Data
-public class JwtRequestDonorRegistration {
+public class RequestPatientRegistration {
 
   private String firstName;
 

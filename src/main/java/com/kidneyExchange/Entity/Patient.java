@@ -31,7 +31,6 @@ public class Patient {
     @NotBlank
     private String bloodType;
 
-    @NotBlank
     private String gene;
 
     private String email;
@@ -40,11 +39,21 @@ public class Patient {
 
     private Date arrivingTime;
 
-    public Patient(String firstName, String lastName, String email, String city, String bloodType) {
+    private Boolean hasPair = false;
+
+    public Patient(String firstName, String lastName, String email, String city, String bloodType, Date arrivingTime, Boolean hasPair) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.city = city;
+        this.bloodType = bloodType;
+        this.arrivingTime = arrivingTime;
+        this.hasPair = hasPair;
+    }
+
+    public Patient(String firstName, String lastName, String bloodType) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.bloodType = bloodType;
     }
 }

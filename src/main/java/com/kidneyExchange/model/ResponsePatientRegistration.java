@@ -3,11 +3,11 @@ package com.kidneyExchange.model;
 import lombok.Data;
 
 @Data
-public class JwtResponseDonorRegistration {
+public class ResponsePatientRegistration {
 
   private Boolean userIsInDatabase;
 
-  public JwtResponseDonorRegistration(Boolean userIsInDatabase) {
+  public ResponsePatientRegistration(Boolean userIsInDatabase) {
     this.userIsInDatabase = userIsInDatabase;
   }
 }

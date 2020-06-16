@@ -39,12 +39,21 @@ public class Donor {
 
   private Date arrivingTime;
 
-  public Donor(String firstName, String lastName, String email, String city, String bloodType, Date arrivingTime) {
+  private Boolean hasPair = false;
+
+  public Donor(String firstName, String lastName, String email, String city, String bloodType, Date arrivingTime, Boolean hasAPair) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.city = city;
     this.bloodType = bloodType;
     this.arrivingTime = arrivingTime;
+    this.hasPair = hasAPair;
+  }
+
+    public Donor(String firstName, String lastName, String bloodType) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.bloodType = bloodType;
   }
 }

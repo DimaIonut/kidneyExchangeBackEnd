@@ -1,8 +1,8 @@
 package com.kidneyExchange.controller;
 
 import com.kidneyExchange.Entity.Donor;
-import com.kidneyExchange.model.JwtRequestDonorRegistration;
-import com.kidneyExchange.model.JwtResponseDonorRegistration;
+import com.kidneyExchange.model.RequestDonorRegistration;
+import com.kidneyExchange.model.ResponseDonorRegistration;
 import com.kidneyExchange.repository.DonorRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,16 +17,16 @@ import java.util.Date;
 
 @RestController
 @CrossOrigin
-public class JwtDonorRegistrationController {
+public class DonorRegistrationController {
 
   @Autowired
   DonorRepository donorRepository;
 
-  private static Logger logger = LogManager.getLogger(JwtRegistrationController.class);
+  private static Logger logger = LogManager.getLogger(DonorRegistrationController.class);
 
   @RequestMapping(value = "/donorRegistration", method = RequestMethod.POST)
   public ResponseEntity<?> donorRegistration(
-      @RequestBody JwtRequestDonorRegistration requestDonorRegistration)
+      @RequestBody RequestDonorRegistration requestDonorRegistration)
       throws Exception {
 
     logger.info("Donor Registration " + requestDonorRegistration.getFirstName() + " "
@@ -34,7 +34,7 @@ public class JwtDonorRegistrationController {
 
     Donor donor = new Donor(requestDonorRegistration.getFirstName(),
         requestDonorRegistration.getLastName(), requestDonorRegistration.getEmail(),
-        requestDonorRegistration.getCity(), requestDonorRegistration.getBloodType(), new Date());
+        requestDonorRegistration.getCity(), requestDonorRegistration.getBloodType(), new Date(), false);
 
     donorRepository.save(donor);
 
@@ -42,9 +42,9 @@ public class JwtDonorRegistrationController {
         .findByFirstNameAndLastNameAndBloodType(requestDonorRegistration.getFirstName(),
             requestDonorRegistration.getLastName(), requestDonorRegistration.getBloodType())
         .orElse(null) != null) {
-      return ResponseEntity.ok(new JwtResponseDonorRegistration(true));
+      return ResponseEntity.ok(new ResponseDonorRegistration(true));
     } else {
-      return ResponseEntity.ok(new JwtResponseDonorRegistration(false));
+      return ResponseEntity.ok(new ResponseDonorRegistration(false));
     }
   }
 }

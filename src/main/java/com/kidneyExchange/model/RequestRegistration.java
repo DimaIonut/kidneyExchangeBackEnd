@@ -4,7 +4,7 @@ package com.kidneyExchange.model;
 import lombok.Data;
 
 @Data
-public class JwtRequestRegistration {
+public class RequestRegistration {
 
     private String username;
 
