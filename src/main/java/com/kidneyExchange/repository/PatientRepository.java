@@ -11,5 +11,9 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
   Optional<Patient> findByFirstNameAndLastNameAndBloodType(String firstName, String lastName, String bloodType);
 
-  List<Patient> findByHasPairOrderByArrivingTimeAsc(Boolean harPair);
+  List<Patient> findByHasPairOrderByArrivingTimeAsc(Boolean hasPair);
+
+  Optional<Patient> findById(Integer id);
+
+  List<Patient> findByOrderByIdAsc();
 }

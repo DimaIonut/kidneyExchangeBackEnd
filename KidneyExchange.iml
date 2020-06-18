@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="EclipseModuleManager">
-      <src_description expected_position="0">
+    <src_description expected_position="0">
       <src_folder value="file://$MODULE_DIR$/src/test/java" expected_position="0" />
       <src_folder value="file://$MODULE_DIR$/src/test/resources" expected_position="1" />
       <src_folder value="file://$MODULE_DIR$/src/main/java" expected_position="2" />
@@ -21,12 +21,14 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="javax.annotation-api-1.3.2.jar">
+        <CLASSES />
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
       <library name="validation-api-2.0.1.Final.jar">
+        <CLASSES />
         <JAVADOC />
         <SOURCES />
       </library>
@@ -34,17 +36,18 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="module-library">
       <library name="spring-boot-starter-web-2.1.1.RELEASE.jar">
+        <CLASSES />
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
       <library name="spring-boot-starter-2.1.1.RELEASE.jar">
+        <CLASSES />
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.1.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-json:2.1.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.7" level="project" />
@@ -111,5 +114,9 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.1.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:5.1.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.2" level="project" />
+    <orderEntry type="library" name="Maven: org.jgrapht:jgrapht-core:1.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.jheaps:jheaps:0.13" level="project" />
+    <orderEntry type="library" name="Maven: org.jgrapht:jgrapht-ext:1.5.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.vlsi.mxgraph:jgraphx:4.0.5" level="project" />
   </component>
 </module>

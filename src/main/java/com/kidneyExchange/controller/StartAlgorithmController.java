@@ -1,7 +1,6 @@
 package com.kidneyExchange.controller;
 
-import com.kidneyExchange.Entity.Donor;
-import com.kidneyExchange.Entity.Patient;
+import com.kidneyExchange.algorithmSteps.TwoCycleAndPiMaximised;
 import com.kidneyExchange.repository.DonorRepository;
 import com.kidneyExchange.repository.PatientRepository;
 import com.kidneyExchange.utilities.CheckCompatibility;
@@ -26,20 +25,14 @@ public class StartAlgorithmController {
   @Autowired
   DonorRepository donorRepository;
 
+  @Autowired
+  TwoCycleAndPiMaximised twoCycleAndPiMaximised;
+
   private static Logger logger = LogManager.getLogger(StartAlgorithmController.class);
 
-  @RequestMapping(value="/start_find_compatibility", method = RequestMethod.GET)
-  public boolean test() {
+  @RequestMapping(value = "/start_find_compatibility", method = RequestMethod.GET)
+  public void startAlgorithm() {
 
-    Donor donor = donorRepository.findByFirstName("Ionut").orElse(null);
-
-    Patient patient = patientRepository.findByFirstName("George").orElse(null);
-
-    boolean compatibility = checkCompatibility.areCompatible(patient, donor);
-    logger.info(
-        "Values of isCompatibility function having patient " + patient.getFirstName() + " and donor "
-            + donor.getFirstName() + " : " + checkCompatibility.areCompatible(patient, donor));
-
-    return compatibility;
+    twoCycleAndPiMaximised.start();
   }
 }

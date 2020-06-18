@@ -29,4 +29,21 @@ public class CheckCompatibility {
     }
     return false;
   }
+
+  public boolean areCompatible(String bloodTypeDonor, String bloodTypePatient) {
+
+    compatibilityRules.createRules();
+
+    for (Entry<String, List<String>> entry : compatibilityRules.getCompatibilityRules()
+        .entrySet()) {
+      String key = entry.getKey();
+      List<String> values = entry.getValue();
+      if (bloodTypeDonor.equals(key)) {
+        if (values.contains(bloodTypePatient)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }
