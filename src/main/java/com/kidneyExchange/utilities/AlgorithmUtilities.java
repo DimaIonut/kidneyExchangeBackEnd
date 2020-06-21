@@ -1,8 +1,11 @@
 package com.kidneyExchange.utilities;
 
+import com.kidneyExchange.Entity.AltruisticDonor;
 import com.kidneyExchange.Entity.Donor;
 import com.kidneyExchange.Entity.PairPatientDonor;
 import com.kidneyExchange.Entity.Patient;
+import com.kidneyExchange.Entity.ValidatedCycle;
+import com.kidneyExchange.repository.AltruisticDonorRepository;
 import com.kidneyExchange.repository.DonorRepository;
 import com.kidneyExchange.repository.PairPatientDonorRepository;
 import com.kidneyExchange.repository.PatientRepository;
@@ -25,6 +28,9 @@ public class AlgorithmUtilities {
 
   @Autowired
   DonorRepository donorRepository;
+
+  @Autowired
+  AltruisticDonorRepository altruisticDonorRepository;
 
   public void insertPairsAndUpdateStatus(Patient patient, Donor donor) {
 
@@ -84,6 +90,10 @@ public class AlgorithmUtilities {
 
     patientRepository.save(patient);
 
+    altruisticDonorRepository.save(
+        new AltruisticDonor(donor.getId(), donor.getFirstName(), donor.getLastName(),
+            donor.getBloodType()));
+
     pairPatientDonorRepository
         .save(new PairPatientDonor(patient.getId(), patient.getBloodType(), donor.getId(),
             donor.getBloodType(), false));
@@ -93,4 +103,42 @@ public class AlgorithmUtilities {
     donorRepository.save(donorUpdated);
   }
 
+  public Boolean cycleContainsDonor(ValidatedCycle validatedCycle, PairPatientDonor donor) {
+
+    if (validatedCycle.getFirstDonorId() == donor.getDonorId() ||
+        validatedCycle.getSecondDonorId() == donor.getDonorId() ||
+        validatedCycle.getThirdDonorId() == donor.getDonorId()) {
+      return true;
+    }
+    return false;
+  }
+
+  public int getCycleLength(ValidatedCycle validatedCycle) {
+
+    if (validatedCycle.getTwoCycle() && !validatedCycle.getThreeCycle()) {
+      return 2;
+    }
+    return 3;
+  }
+
+  public int[][] removeFirstRowAndColumn(int[][] matrix) {
+
+    int[][] localMatrix = new int[matrix.length-1][matrix[0].length-1];
+    for (int i = 1; i < matrix.length; i++) {
+      for (int j = 1; j < matrix[0].length; j++) {
+        localMatrix[i-1][j-1] = matrix[i][j];
+      }
+    }
+    return localMatrix;
+  }
+
+  public int [][] removeFirstElement(int[][] vector) {
+
+    int [][] localVector = new int[vector.length-1][vector[0].length];
+    for(int i = 1; i < vector.length; i++) {
+      localVector[i-1][0] = vector[i][0];
+    }
+
+    return localVector;
+  }
 }

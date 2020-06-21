@@ -25,30 +25,31 @@ public class ValidatedCycle {
     private Integer secondPatientId;
     private Integer secondDonorId;
 
-    private Boolean isTwoCycle;
+    private Boolean twoCycle;
 
     private Integer thirdPatientId;
     private Integer thirdDonorId;
 
-    private Boolean isThreeCycle;
+    private Boolean threeCycle;
 
     public ValidatedCycle(Integer firstPatientId, Integer firstDonorId, Integer secondPatientId, Integer secondDonorId) {
         this.firstPatientId = firstPatientId;
         this.firstDonorId = firstDonorId;
         this.secondPatientId = secondPatientId;
         this.secondDonorId = secondDonorId;
-        this.isTwoCycle = true;
+        this.twoCycle = true;
+        this.threeCycle = false;
     }
 
     public ValidatedCycle(Integer firstPatientId, Integer firstDonorId, Integer secondPatientId, Integer secondDonorId, Integer thirdPatientId, Integer thirdDonorId,
-        Boolean isTwoCycle) {
+        Boolean twoCycle) {
         this.firstPatientId = firstPatientId;
         this.firstDonorId = firstDonorId;
         this.secondPatientId = secondPatientId;
         this.secondDonorId = secondDonorId;
-        this.isTwoCycle = isTwoCycle;
+        this.twoCycle = twoCycle;
         this.thirdPatientId = thirdPatientId;
         this.thirdDonorId = thirdDonorId;
-        this.isThreeCycle = true;
+        this.threeCycle = true;
     }
 }

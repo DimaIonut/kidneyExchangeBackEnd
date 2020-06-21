@@ -1,6 +1,7 @@
 package com.kidneyExchange.controller;
 
-import com.kidneyExchange.algorithmSteps.TwoCycleAndPiMaximised;
+import com.kidneyExchange.algorithmSteps.CreateMatrixAndVectors;
+import com.kidneyExchange.algorithmSteps.CreatePairsAndDirectedGraphAndCycle;
 import com.kidneyExchange.repository.DonorRepository;
 import com.kidneyExchange.repository.PatientRepository;
 import com.kidneyExchange.utilities.CheckCompatibility;
@@ -26,13 +27,18 @@ public class StartAlgorithmController {
   DonorRepository donorRepository;
 
   @Autowired
-  TwoCycleAndPiMaximised twoCycleAndPiMaximised;
+  CreateMatrixAndVectors createMatrixAndVectors;
+
+  @Autowired
+  CreatePairsAndDirectedGraphAndCycle createPairsAndDirectedGraphAndCycle;
 
   private static Logger logger = LogManager.getLogger(StartAlgorithmController.class);
 
   @RequestMapping(value = "/start_find_compatibility", method = RequestMethod.GET)
   public void startAlgorithm() {
 
-    twoCycleAndPiMaximised.start();
+    createPairsAndDirectedGraphAndCycle.start();
+
+    createMatrixAndVectors.start();
   }
 }
