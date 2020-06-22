@@ -2,6 +2,7 @@ package com.kidneyExchange.controller;
 
 import com.kidneyExchange.algorithmSteps.CreateMatrixAndVectors;
 import com.kidneyExchange.algorithmSteps.CreatePairsAndDirectedGraphAndCycle;
+import com.kidneyExchange.algorithmSteps.ResolveLpProblem;
 import com.kidneyExchange.repository.DonorRepository;
 import com.kidneyExchange.repository.PatientRepository;
 import com.kidneyExchange.utilities.CheckCompatibility;
@@ -32,6 +33,9 @@ public class StartAlgorithmController {
   @Autowired
   CreatePairsAndDirectedGraphAndCycle createPairsAndDirectedGraphAndCycle;
 
+  @Autowired
+  ResolveLpProblem resolveLpProblem;
+
   private static Logger logger = LogManager.getLogger(StartAlgorithmController.class);
 
   @RequestMapping(value = "/start_find_compatibility", method = RequestMethod.GET)
@@ -40,5 +44,7 @@ public class StartAlgorithmController {
     createPairsAndDirectedGraphAndCycle.start();
 
     createMatrixAndVectors.start();
+
+    resolveLpProblem.start();
   }
 }
