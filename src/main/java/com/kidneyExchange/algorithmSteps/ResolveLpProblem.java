@@ -20,8 +20,6 @@ public class ResolveLpProblem {
       int[] colno = new int[Ncol];
       double[] row = new double[Ncol];
 
-//      System.out.println(createMatrixAndVectors.A.length);
-
       if (solver.getLp() != 0) {
 
         for (int t = 0; t < createMatrixAndVectors.getC().length; t++) {
@@ -67,15 +65,6 @@ public class ResolveLpProblem {
           }
         }
       }
-
-//       solver.solve();
-
-      // print solution
-//       System.out.println("Value of objective function: " + solver.getObjective());
-//       double[] var = solver.getPtrVariables();
-//       for (int i = 0; i < var.length; i++) {
-//         System.out.println("Value of var[" + i + "] = " + var[i]);
-//       }
 
       // delete the problem and free memory
       solver.deleteLp();
