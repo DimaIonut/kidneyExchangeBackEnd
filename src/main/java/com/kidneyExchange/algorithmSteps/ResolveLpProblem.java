@@ -26,7 +26,7 @@ public class ResolveLpProblem {
 
           solver.setColName(t + 1, String.format("x" + (t + 1)));
 
-//          solver.setBinary(t+1, true);
+          solver.setBinary(t+1, true);
         }
 
         solver.setAddRowmode(true);
