@@ -87,7 +87,7 @@ public class CreatePairsAndDirectedGraphAndCycles {
         }
       }
     });
-
+    // create pairs with the remaining patients
     List<Patient> reloadPatientList = patientRepository.findByHasPairOrderByArrivingTimeAsc(false);
 
     List<Donor> reloadDonorList = donorRepository.findByHasPairOrderByArrivingTimeAsc(false);
@@ -149,17 +149,23 @@ public class CreatePairsAndDirectedGraphAndCycles {
         }
       }
     }
-    // identified cycles having 2 or 3 size
+    // identified cycles having 2 or 3 size and save
     for (int i = 0; i < pairPatientDonorList.size(); i++) {
       for (int j = 0; j < pairPatientDonorList.size(); j++) {
         if (directedGraph.getEdge(pairPatientDonorList.get(i), pairPatientDonorList.get(j)) != null
             && directedGraph.getEdge(pairPatientDonorList.get(j), pairPatientDonorList.get(i))
             != null) {
-          validatedCycleRepository.save(
+          if (algorithmUtilities.checkValidatedCycleExist(
               new ValidatedCycle(pairPatientDonorList.get(i).getPatientId(),
                   pairPatientDonorList.get(i).getDonorId(),
                   pairPatientDonorList.get(j).getPatientId(),
-                  pairPatientDonorList.get(j).getDonorId()));
+                  pairPatientDonorList.get(j).getDonorId()))) {
+            validatedCycleRepository.save(
+                new ValidatedCycle(pairPatientDonorList.get(i).getPatientId(),
+                    pairPatientDonorList.get(i).getDonorId(),
+                    pairPatientDonorList.get(j).getPatientId(),
+                    pairPatientDonorList.get(j).getDonorId()));
+          }
           for (int k = 0; k < pairPatientDonorList.size(); k++) {
             if (directedGraph.getEdge(pairPatientDonorList.get(i), pairPatientDonorList.get(j))
                 != null
@@ -167,13 +173,21 @@ public class CreatePairsAndDirectedGraphAndCycles {
                 != null
                 && directedGraph.getEdge(pairPatientDonorList.get(k), pairPatientDonorList.get(i))
                 != null) {
-              validatedCycleRepository
-                  .save(new ValidatedCycle(pairPatientDonorList.get(i).getPatientId(),
+              if (algorithmUtilities.checkValidatedCycleExist(
+                  new ValidatedCycle(pairPatientDonorList.get(i).getPatientId(),
                       pairPatientDonorList.get(i).getDonorId(),
                       pairPatientDonorList.get(j).getPatientId(),
                       pairPatientDonorList.get(j).getDonorId(),
                       pairPatientDonorList.get(k).getPatientId(),
-                      pairPatientDonorList.get(k).getDonorId(), true));
+                      pairPatientDonorList.get(k).getDonorId(), true))) {
+                validatedCycleRepository
+                    .save(new ValidatedCycle(pairPatientDonorList.get(i).getPatientId(),
+                        pairPatientDonorList.get(i).getDonorId(),
+                        pairPatientDonorList.get(j).getPatientId(),
+                        pairPatientDonorList.get(j).getDonorId(),
+                        pairPatientDonorList.get(k).getPatientId(),
+                        pairPatientDonorList.get(k).getDonorId(), true));
+              }
             }
           }
         } else {
@@ -184,13 +198,21 @@ public class CreatePairsAndDirectedGraphAndCycles {
                 != null
                 && directedGraph.getEdge(pairPatientDonorList.get(k), pairPatientDonorList.get(i))
                 != null) {
-              validatedCycleRepository
-                  .save(new ValidatedCycle(pairPatientDonorList.get(i).getPatientId(),
+              if (algorithmUtilities.checkValidatedCycleExist(
+                  new ValidatedCycle(pairPatientDonorList.get(i).getPatientId(),
                       pairPatientDonorList.get(i).getDonorId(),
                       pairPatientDonorList.get(j).getPatientId(),
                       pairPatientDonorList.get(j).getDonorId(),
                       pairPatientDonorList.get(k).getPatientId(),
-                      pairPatientDonorList.get(k).getDonorId(), false));
+                      pairPatientDonorList.get(k).getDonorId(), false))) {
+                validatedCycleRepository
+                    .save(new ValidatedCycle(pairPatientDonorList.get(i).getPatientId(),
+                        pairPatientDonorList.get(i).getDonorId(),
+                        pairPatientDonorList.get(j).getPatientId(),
+                        pairPatientDonorList.get(j).getDonorId(),
+                        pairPatientDonorList.get(k).getPatientId(),
+                        pairPatientDonorList.get(k).getDonorId(), false));
+              }
             }
           }
         }

@@ -1,11 +1,13 @@
 package com.kidneyExchange.controller;
 
+import com.kidneyExchange.Entity.FinalPair;
 import com.kidneyExchange.algorithmSteps.CreateMatrixAndVectors;
 import com.kidneyExchange.algorithmSteps.CreatePairsAndDirectedGraphAndCycles;
 import com.kidneyExchange.algorithmSteps.ResolveLpProblem;
 import com.kidneyExchange.repository.DonorRepository;
 import com.kidneyExchange.repository.PatientRepository;
 import com.kidneyExchange.utilities.CheckCompatibility;
+import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +41,12 @@ public class StartAlgorithmController {
   private static Logger logger = LogManager.getLogger(StartAlgorithmController.class);
 
   @RequestMapping(value = "/start_find_compatibility", method = RequestMethod.GET)
-  public void startAlgorithm() {
+  public List<FinalPair> startAlgorithm() {
 
     createPairsAndDirectedGraphAndCycles.start();
 
     createMatrixAndVectors.start();
 
-    resolveLpProblem.start();
+    return resolveLpProblem.start();
   }
 }

@@ -25,12 +25,12 @@ public class ValidatedCycle {
     private Integer secondPatientId;
     private Integer secondDonorId;
 
-    private Boolean twoCycle;
+    private Boolean twoCycle = false;
 
     private Integer thirdPatientId;
     private Integer thirdDonorId;
 
-    private Boolean threeCycle;
+    private Boolean threeCycle = false;
 
     public ValidatedCycle(Integer firstPatientId, Integer firstDonorId, Integer secondPatientId, Integer secondDonorId) {
         this.firstPatientId = firstPatientId;

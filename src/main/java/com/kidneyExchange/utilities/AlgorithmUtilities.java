@@ -2,13 +2,16 @@ package com.kidneyExchange.utilities;
 
 import com.kidneyExchange.Entity.AltruisticDonor;
 import com.kidneyExchange.Entity.Donor;
+import com.kidneyExchange.Entity.FinalCycle;
 import com.kidneyExchange.Entity.PairPatientDonor;
 import com.kidneyExchange.Entity.Patient;
 import com.kidneyExchange.Entity.ValidatedCycle;
 import com.kidneyExchange.repository.AltruisticDonorRepository;
 import com.kidneyExchange.repository.DonorRepository;
+import com.kidneyExchange.repository.FinalCycleRepository;
 import com.kidneyExchange.repository.PairPatientDonorRepository;
 import com.kidneyExchange.repository.PatientRepository;
+import com.kidneyExchange.repository.ValidatedCycleRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,12 @@ public class AlgorithmUtilities {
 
   @Autowired
   AltruisticDonorRepository altruisticDonorRepository;
+
+  @Autowired
+  FinalCycleRepository finalCycleRepository;
+
+  @Autowired
+  ValidatedCycleRepository validatedCycleRepository;
 
   public void insertPairsAndUpdateStatus(Patient patient, Donor donor) {
 
@@ -117,28 +126,112 @@ public class AlgorithmUtilities {
 
     if (validatedCycle.getTwoCycle() && !validatedCycle.getThreeCycle()) {
       return 2;
+    } else if (validatedCycle.getThreeCycle()) {
+      return 3;
+    }
+    return 0;
+  }
+
+  public int getFinalCycleLength(FinalCycle finalCycle) {
+
+    if (finalCycle.getTwoCycle() && !finalCycle.getThreeCycle()) {
+      return 2;
     }
     return 3;
   }
 
   public int[][] removeFirstRowAndColumn(int[][] matrix) {
 
-    int[][] localMatrix = new int[matrix.length-1][matrix[0].length-1];
+    int[][] localMatrix = new int[matrix.length - 1][matrix[0].length - 1];
     for (int i = 1; i < matrix.length; i++) {
       for (int j = 1; j < matrix[0].length; j++) {
-        localMatrix[i-1][j-1] = matrix[i][j];
+        localMatrix[i - 1][j - 1] = matrix[i][j];
       }
     }
     return localMatrix;
   }
 
-  public int [][] removeFirstElement(int[][] vector) {
+  public int[][] removeFirstElement(int[][] vector) {
 
-    int [][] localVector = new int[vector.length-1][vector[0].length];
-    for(int i = 1; i < vector.length; i++) {
-      localVector[i-1][0] = vector[i][0];
+    int[][] localVector = new int[vector.length - 1][vector[0].length];
+    for (int i = 1; i < vector.length; i++) {
+      localVector[i - 1][0] = vector[i][0];
     }
 
     return localVector;
+  }
+
+  public String getPatientCompleteNameById(Integer id) {
+
+    Patient patient = patientRepository.findById(id).orElse(null);
+
+    if (patient != null) {
+
+      return patient.getFirstName() + " " + patient.getLastName();
+    }
+    return null;
+  }
+
+  public String getDonorCompleteNameById(Integer id) {
+
+    Donor donor = donorRepository.findById(id).orElse(null);
+
+    if (donor != null) {
+
+      return donor.getFirstName() + " " + donor.getLastName();
+    }
+    return null;
+  }
+
+  public String getPatientBloodTypeById(Integer id) {
+
+    Patient patient = patientRepository.findById(id).orElse(null);
+
+    if (patient != null) {
+
+      return patient.getBloodType();
+    }
+    return null;
+  }
+
+  public String getDonorBloodTypeById(Integer id) {
+
+    Donor donor = donorRepository.findById(id).orElse(null);
+
+    if (donor != null) {
+
+      return donor.getBloodType();
+    }
+    return null;
+  }
+
+  public Boolean checkFinalCycleExist(FinalCycle finalCycle) {
+
+    FinalCycle localFinalCycle = finalCycleRepository
+        .findByFirstPatientIdAndFirstDonorIdAndSecondPatientIdAndSecondDonorIdAndTwoCycleAndThirdPatientIdAndThirdDonorIdAndThreeCycle(
+            finalCycle.getFirstPatientId(), finalCycle.getFirstDonorId(),
+            finalCycle.getSecondPatientId(), finalCycle.getSecondDonorId(),
+            finalCycle.getTwoCycle(), finalCycle.getThirdPatientId(), finalCycle.getThirdDonorId(),
+            finalCycle.getThreeCycle()).orElse(null);
+
+    if (localFinalCycle == null) {
+      return true;
+    }
+    return false;
+  }
+
+  public Boolean checkValidatedCycleExist(ValidatedCycle validatedCycle) {
+
+    ValidatedCycle localValidatedCycle = validatedCycleRepository
+        .findByFirstPatientIdAndFirstDonorIdAndSecondPatientIdAndSecondDonorIdAndTwoCycleAndThirdPatientIdAndThirdDonorIdAndThreeCycle(
+            validatedCycle.getFirstPatientId(), validatedCycle.getFirstDonorId(),
+            validatedCycle.getSecondPatientId(), validatedCycle.getSecondDonorId(),
+            validatedCycle.getTwoCycle(), validatedCycle.getThirdPatientId(),
+            validatedCycle.getThirdDonorId(), validatedCycle.getThreeCycle()).orElse(null);
+
+    if (localValidatedCycle == null) {
+      return true;
+    }
+    return false;
   }
 }
