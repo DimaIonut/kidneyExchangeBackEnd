@@ -1,13 +1,8 @@
 package com.kidneyExchange.controller;
 
 
-import com.kidneyExchange.Entity.User;
 import com.kidneyExchange.model.RequestRegistration;
-import com.kidneyExchange.model.ResponseRegistration;
-import com.kidneyExchange.repository.DonorRepository;
-import com.kidneyExchange.repository.PatientRepository;
-import com.kidneyExchange.repository.UserRepository;
-import java.util.Date;
+import com.kidneyExchange.service.RegistrationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegistrationController {
 
   @Autowired
-  UserRepository userRepository;
-
+  private RegistrationService registrationService;
 
   private static Logger logger = LogManager.getLogger(RegistrationController.class);
 
@@ -32,20 +26,6 @@ public class RegistrationController {
   public ResponseEntity<?> creataNewUser(@RequestBody RequestRegistration registrationRequest)
       throws Exception {
 
-    logger.info(
-        "User " + registrationRequest.getUsername() + " registration (at " + new Date() + ")");
-
-    userRepository
-        .save(new User(registrationRequest.getUsername(), registrationRequest.getEmail(),
-            registrationRequest.getPassword(), registrationRequest.getType()));
-
-    if (userRepository
-        .findByUsernameAndEmail(registrationRequest.getUsername(), registrationRequest.getEmail())
-        .orElse(null) != null) {
-      return ResponseEntity.ok(new ResponseRegistration("V-ati inregistrat cu succes!", true));
-    } else {
-      return ResponseEntity
-          .ok(new ResponseRegistration("Din pacate inregistrarea nu a avut loc!", false));
-    }
+    return registrationService.registrate(registrationRequest);
   }
 }

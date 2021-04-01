@@ -14,5 +14,4 @@ public interface DonorRepository extends JpaRepository<Donor, Integer> {
 
   List<Donor> findByHasPairOrderByArrivingTimeAsc(Boolean hasPair);
 
-  Optional<Donor> findById(Integer id);
 }
